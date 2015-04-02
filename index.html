@@ -1,1 +1,45 @@
-Hello World
+
+
+<!doctype html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+<h1>Title</h1>
+Halide Implementation of Caffe Deep Learning - Philip Massey & Arjun Kar
+
+<h2>Summary</h2>
+Our project is to port the deep learning library Caffe to the image processing language Halide. 
+This may include partial steps of developing a neural network in Halide or porting Caffe to a Xeon Phi. 
+
+<h2>Background</h2>
+
+<h2>The Challenge</h2>
+This project is very challenging for a few reasons. Deep learning through neural networks is a nontrivial application of machine learning. Simply developing the methods of forward and backward propagation to train the weights of hidden layers is a challenge. Caffe is known for being one of the best implementations of neural networks and is developed for both CPUs and GPUs. Halide is a powerful API / language built on C++ used for image processing in an object-oriented method. Our main goal, porting the backend of Caffe to Halide requires us to both completely understand neural network training, hack into the open-source Caffe framework, and learn Halide. In the event that this proves impractical -- due either to difficulties with Halide or Caffe -- our backup goals are still nontrivial. Porting Caffe to a Xeon Phi requires rewriting of its backend to work with many more cores than usual, and writing a neural network in Halide requires the learning of a new language and paradigm (as well as understand how to turn neural network training into a parallel process).
+
+<h2>Resources</h2>
+For this project, we have collected the following resources (and may collect more as the project continues):
+
+- Caffe Deep-Learning Framework (http://caffe.berkeleyvision.org/)
+- Halide programming language (http://halide-lang.org/)
+
+<h2>Goals & Deliverables</h2>
+By the end of this project, we hope to have a working implementation of Caffe's neural network written in Halide. We will then compare (and perhaps optimize) the performance of this algorithm with other implementations. In the event that this component of our project isn't completed and we simply port Caffe to a Xeon Phi or develop a neural network in Halide, we will compare performance via training time, testing time, and accuracy with other CPU and GPU implementations. These tests would be done on a consistent dataset, such as CIFAR-10. 
+
+<h2>Platform Choices</h2>
+We will be working in unix environment, coding our project in C++ and Halide. This is because caffe is originally in C++, and Halide is our target port language. If our project gains the objective of porting Caffe to a Xeon Phi, we will use the new latedays cluster for hardware. 
+
+<h2>Schedule</h2>
+week 1: Familiarize with Caffe framework codebase / Halide language basics
+week 2: Develop basic algorithms in Halide / rewrite parts of Caffe in C++ for framework understanding.
+week 3: Port necessary components to Halide.
+week 4: Test / compare.
+week 5: Extra / spillover time.
+
+This is the project page for a 15-418 class project at Carnegie Mellon University. It will (eventually) be updated to look pretty (probably).
+
+</body>
+</html>
