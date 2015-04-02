@@ -22,6 +22,29 @@ Based on which of the two resources are proving difficult, we will either port C
 </p>
 
 <h2>Background</h2>
+<p>
+This project is a topic in parallel machine learning.
+Our particular project is looking into neural networks.
+Nueral networks are not simple algorithms, a nice introduction can be found <a href="http://www.willamette.edu/~gorr/classes/cs449/intro.html">here</a>.
+As a brief overview, neural networks are made up of many layers.
+Each layer uses the weight sum of the layers beneath it and computes a new value using the hyperbolic tangent function (as it is a universal basis function).
+The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percetange for classification).
+What's amazing about this algorithm is that given enough hidden layers and training time, a neural network can represent ANY function.
+<br><br>
+The Caffe deep-learning framework is developed by he Berkeley Vision and Learning Center and is currently considered one of the best implementations of neural networks available.
+It prides itself on its speed, modularity, and expression.
+It runs on both CPUs and GPUs and supports many languages.
+Halide is a new programming language / C++ API that is designed for high-performance image processing.
+It also has modes for both CPUs and GPUs and many languages.
+<br><br>
+Nueral networks have many opprotunities for parallelism.
+One example is parallizing the different nodes in each layer, and syncing between each layer.
+This allows for parallelization on both forward and backward propagation.
+However, other forms of parallelism can also prove interesting.
+For example, parallelizing training examples and doing batch updates is a method we may explore.
+Doing this would given an approximation to the correct solution of a neural network.
+However, in many machine learning algorithms, this possible decrease in accuracy is well worth the decrease in training time.
+</p>
 
 <h2>The Challenge</h2>
 <p>
@@ -32,7 +55,7 @@ On top of this algorithm, this project requires a deep understanding of the Caff
 Caffe is known for being one of the best implementations of neural networks and is developed for both CPUs and GPUs.
 Halide is a powerful API / language built on C++ used for image processing in an object-oriented method. 
 Our primary goal, porting the backend of Caffe to Halide, will test our understanding of the two resources.
-<br>
+<br><br>
 In the event that our primary goal is too difficult, we have two planned backup goals.
 The first is in the event that understanding Caffe's source code to the point of being able to port it to a new langauge is too difficult.
 In this event, we will instead implement a nueral network in Halide.
