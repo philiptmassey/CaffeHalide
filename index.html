@@ -28,7 +28,7 @@ Our particular project is looking into neural networks.
 Neural networks are not simple algorithms; a nice introduction can be found <a href="http://www.willamette.edu/~gorr/classes/cs449/intro.html">here</a>.
 As a brief overview, neural networks are made up of many layers.
 Each layer uses the weighted sum of the layers beneath it and computes a new value using the hyperbolic tangent function (as it is a universal basis function).
-The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percetange for classification).
+The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percentage for classification).
 What's amazing about this algorithm is that given enough hidden layers and training time, a neural network can represent ANY function.
 <br><br>
 The Caffe deep-learning framework is developed by the Berkeley Vision and Learning Center and is currently considered one of the best implementations of neural networks available.
@@ -37,7 +37,7 @@ It runs on both CPUs and GPUs and supports many languages.
 Halide is a new programming language / C++ API that is designed for high-performance image processing.
 It also has modes for both CPUs and GPUs and many languages.
 <br><br>
-Nueral networks have many opprotunities for parallelism.
+Neural networks have many opportunities for parallelism.
 One example is parallelizing the different nodes in each layer, and syncing between each layer.
 This allows for parallelization on both forward and backward propagation.
 However, other forms of parallelism can also prove interesting.
@@ -55,7 +55,7 @@ On top of this algorithm, this project requires a deep understanding of the Caff
 Our primary goal, porting the backend of Caffe to Halide, will test our understanding of the two resources.
 <br><br>
 In the event that our primary goal is too difficult, we have two planned backup goals.
-The first backup will be used if understanding Caffe's source code to the point of being able to port it to a new langauge is too difficult.
+The first backup will be used if understanding Caffe's source code to the point of being able to port it to a new language is too difficult.
 In this event, we will instead implement a neural network in Halide.
 In the event that learning Halide proves too difficult or we reason that Halide's approach to development is impractical for a neural network, we will instead port Caffe to a Xeon Phi. 
 </p>
