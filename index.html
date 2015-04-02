@@ -17,7 +17,7 @@ Halide Implementation of the Caffe Deep Learning Framework - Philip Massey & Arj
 <p>
 Our project is to port the deep learning framework <a href="http://caffe.berkeleyvision.org/">Caffe</a> to the image processing language <a href="http://halide-lang.org/">Halide</a>.
 However, this is a daunting project.
-In the event that this proves too difficult / impractical with the current state of the framework or language, we may opt to instead do a simplier project.
+In the event that this proves too difficult / impractical with the current state of the framework or language, we may opt to instead do a simpler project.
 Based on which of the two resources are proving difficult, we will either port Caffe to a Xeon Phi, or develop a neural network in Halide.
 </p>
 
@@ -25,40 +25,38 @@ Based on which of the two resources are proving difficult, we will either port C
 <p>
 This project is a topic in parallel machine learning.
 Our particular project is looking into neural networks.
-Nueral networks are not simple algorithms, a nice introduction can be found <a href="http://www.willamette.edu/~gorr/classes/cs449/intro.html">here</a>.
+Neural networks are not simple algorithms; a nice introduction can be found <a href="http://www.willamette.edu/~gorr/classes/cs449/intro.html">here</a>.
 As a brief overview, neural networks are made up of many layers.
-Each layer uses the weight sum of the layers beneath it and computes a new value using the hyperbolic tangent function (as it is a universal basis function).
+Each layer uses the weighted sum of the layers beneath it and computes a new value using the hyperbolic tangent function (as it is a universal basis function).
 The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percetange for classification).
 What's amazing about this algorithm is that given enough hidden layers and training time, a neural network can represent ANY function.
 <br><br>
-The Caffe deep-learning framework is developed by he Berkeley Vision and Learning Center and is currently considered one of the best implementations of neural networks available.
+The Caffe deep-learning framework is developed by the Berkeley Vision and Learning Center and is currently considered one of the best implementations of neural networks available.
 It prides itself on its speed, modularity, and expression.
 It runs on both CPUs and GPUs and supports many languages.
 Halide is a new programming language / C++ API that is designed for high-performance image processing.
 It also has modes for both CPUs and GPUs and many languages.
 <br><br>
 Nueral networks have many opprotunities for parallelism.
-One example is parallizing the different nodes in each layer, and syncing between each layer.
+One example is parallelizing the different nodes in each layer, and syncing between each layer.
 This allows for parallelization on both forward and backward propagation.
 However, other forms of parallelism can also prove interesting.
 For example, parallelizing training examples and doing batch updates is a method we may explore.
-Doing this would given an approximation to the correct solution of a neural network.
+Doing this would give an approximation to the correct solution of a neural network.
 However, in many machine learning algorithms, this possible decrease in accuracy is well worth the decrease in training time.
 </p>
 
 <h2>The Challenge</h2>
 <p>
-The project is challenging because of both the subejct matter and the project implementation.
+The project is challenging because of both the subject matter and the project implementation.
 Deep learning through neural networks is a nontrivial application of machine learning.
 Simply developing the methods of forward and backward propagation to train the weights of hidden layers is a challenge. 
 On top of this algorithm, this project requires a deep understanding of the Caffe deep learning framework and the Halide image processing language.
-Caffe is known for being one of the best implementations of neural networks and is developed for both CPUs and GPUs.
-Halide is a powerful API / language built on C++ used for image processing in an object-oriented method. 
 Our primary goal, porting the backend of Caffe to Halide, will test our understanding of the two resources.
 <br><br>
 In the event that our primary goal is too difficult, we have two planned backup goals.
-The first is in the event that understanding Caffe's source code to the point of being able to port it to a new langauge is too difficult.
-In this event, we will instead implement a nueral network in Halide.
+The first backup will be used if understanding Caffe's source code to the point of being able to port it to a new langauge is too difficult.
+In this event, we will instead implement a neural network in Halide.
 In the event that learning Halide proves too difficult or we reason that Halide's approach to development is impractical for a neural network, we will instead port Caffe to a Xeon Phi. 
 </p>
 
@@ -82,7 +80,7 @@ These tests would be done on a consistent dataset, such as CIFAR-10.
 
 <h2>Platform Choices</h2>
 <p>
-We will be working in unix environment, coding our project in C++ and Halide.
+We will be working in a Unix environment, coding our project in C++ and Halide.
 This is because Caffe is originally in C++, and Halide is our target port language.
 If our project gains the objective of porting Caffe to a Xeon Phi, we will use the new latedays cluster for hardware. 
 </p>
@@ -92,7 +90,7 @@ If our project gains the objective of porting Caffe to a Xeon Phi, we will use t
 In order to complete this project in a timely manner, we will keep the following schedule:
 </p>
 <ul>
-<li> Week 1: Familiarize with Caffe framework codebase / Halide language basics </li>
+<li> Week 1: Familiarize ourselves with Caffe framework codebase / Halide language basics </li>
 <li> Week 2: Develop basic algorithms in Halide / rewrite parts of Caffe in C++ for framework understanding. </li>
 <li> Week 3: Port necessary components to Halide. </li>
 <li> Week 4: Test / compare. </li>
