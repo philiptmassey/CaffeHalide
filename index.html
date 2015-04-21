@@ -37,7 +37,7 @@ Halide Implementation of a Convolutional Neural Network - Philip Massey & Arjun 
 <p>
 Our project is to port the deep learning framework <a href="http://caffe.berkeleyvision.org/">Caffe</a> to the image processing language <a href="http://halide-lang.org/">Halide</a>.
 However, this is a daunting project.
-In the event that this proves too difficult / impractical with the current state of the framework or language, we may opt to instead do a simplier project.
+In the event that this proves too difficult / impractical with the current state of the framework or language, we may opt to instead do a simpler project.
 Based on which of the two resources are proving difficult, we will either port Caffe to a Xeon Phi, or develop a neural network in Halide.
 </p>
 
@@ -45,27 +45,27 @@ Based on which of the two resources are proving difficult, we will either port C
 <p>
 This project is a topic in parallel machine learning.
 Our particular project is looking into neural networks.
-Nueral networks are not simple algorithms, a nice introduction can be found <a href="http://www.willamette.edu/~gorr/classes/cs449/intro.html">here</a>.
+Neural networks are not simple algorithms; a nice introduction can be found <a href="http://www.willamette.edu/~gorr/classes/cs449/intro.html">here</a>.
 As a brief overview, neural networks are made up of many layers.
-Each layer uses the weight sum of the layers beneath it and computes a new value using the hyperbolic tangent function (as it is a universal basis function).
-The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percetange for classification).
+Each layer uses the weighted sum of the layers beneath it and computes a new value using the hyperbolic tangent function (as it is a universal basis function).
+The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percentage for classification).
 What's amazing about this algorithm is that given enough hidden layers and training time, a neural network can represent ANY function.
 <br><br>
 Halide is a new programming language / C++ API that is designed for high-performance image processing.
 It also has modes for both CPUs and GPUs and many languages.
 <br><br>
-Nueral networks have many opprotunities for parallelism.
-One example is parallizing the different nodes in each layer, and syncing between each layer.
+Neural networks have many opportunities for parallelism.
+One example is parallelizing the different nodes in each layer, and syncing between each layer.
 This allows for parallelization on both forward and backward propagation.
 However, other forms of parallelism can also prove interesting.
 For example, parallelizing training examples and doing batch updates is a method we may explore.
-Doing this would given an approximation to the correct solution of a neural network.
+Doing this would give an approximation to the correct solution of a neural network.
 However, in many machine learning algorithms, this possible decrease in accuracy is well worth the decrease in training time.
 </p>
 
 <h2>The Challenge</h2>
 <p>
-The project is challenging because of both the subejct matter and the project implementation.
+The project is challenging because of both the subject matter and the project implementation.
 Deep learning through neural networks is a nontrivial application of machine learning.
 Simply developing the methods of forward and backward propagation to train the weights of hidden layers is a challenge. 
 On top of this algorithm, this project requires a deep understanding of the Halide image processing language.
