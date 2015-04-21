@@ -8,9 +8,29 @@
 
 <body>
 
+<h2>Project Checkpoint</h2>
+<p>
+The updated schedule can be found below at the bottom of this page.
+</p>
+
+<p>
+Halfway through this project, I would say that we are well on our way to completion.
+Our understanding of neural networks has increased considerably, and we both understand how convolutional neural networks work and how the three main components (the convolution operators, max pool operators, and fully connected perceptrons) work to create the classifier.
+We have experience with Halide, and how it's functions, expressions, values, and range domains can be done to write these layers in few, but very meaningful lines of code.
+This will allow us to write very parallelizable code, which will help us be competitive.
+</p>
+
+<p>
+At the parallelism competition, we will most likely be showing a graph of the speed of our Halide implementation versus some other implementations, as well as the results for our consideration of Halide as a tool for neural network training.
+</p>
+
+<p>
+Right now, the majority of the work we have left to do is finish coding the nueral network evaluation and get the weights from Caffe's implementation/training of LeNet. Caffe has been proving problematic to get to compile on our local machines, but hopefully the Latedays implementation will work for us.
+</p>
+
 <h2>Title</h2>
 <p>
-Halide Implementation of the Caffe Deep Learning Framework - Philip Massey & Arjun Kar
+Halide Implementation of a Convolutional Neural Network - Philip Massey & Arjun Kar
 </p>
 
 <h2>Summary</h2>
@@ -31,9 +51,6 @@ Each layer uses the weight sum of the layers beneath it and computes a new value
 The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percetange for classification).
 What's amazing about this algorithm is that given enough hidden layers and training time, a neural network can represent ANY function.
 <br><br>
-The Caffe deep-learning framework is developed by he Berkeley Vision and Learning Center and is currently considered one of the best implementations of neural networks available.
-It prides itself on its speed, modularity, and expression.
-It runs on both CPUs and GPUs and supports many languages.
 Halide is a new programming language / C++ API that is designed for high-performance image processing.
 It also has modes for both CPUs and GPUs and many languages.
 <br><br>
@@ -51,15 +68,9 @@ However, in many machine learning algorithms, this possible decrease in accuracy
 The project is challenging because of both the subejct matter and the project implementation.
 Deep learning through neural networks is a nontrivial application of machine learning.
 Simply developing the methods of forward and backward propagation to train the weights of hidden layers is a challenge. 
-On top of this algorithm, this project requires a deep understanding of the Caffe deep learning framework and the Halide image processing language.
-Caffe is known for being one of the best implementations of neural networks and is developed for both CPUs and GPUs.
+On top of this algorithm, this project requires a deep understanding of the Halide image processing language.
 Halide is a powerful API / language built on C++ used for image processing in an object-oriented method. 
-Our primary goal, porting the backend of Caffe to Halide, will test our understanding of the two resources.
-<br><br>
-In the event that our primary goal is too difficult, we have two planned backup goals.
-The first is in the event that understanding Caffe's source code to the point of being able to port it to a new langauge is too difficult.
-In this event, we will instead implement a nueral network in Halide.
-In the event that learning Halide proves too difficult or we reason that Halide's approach to development is impractical for a neural network, we will instead port Caffe to a Xeon Phi. 
+Our primary goal, creating a neural network evaluator Halide, will test our understanding of everything above.
 </p>
 
 <h2>Resources</h2>
@@ -67,24 +78,21 @@ In the event that learning Halide proves too difficult or we reason that Halide'
 For this project, we will utilize the following resources:
 </p>
 <ul>
-<li> <a href="http://caffe.berkeleyvision.org/">Caffe Deep-Learning Framework</a> </li>
 <li> <a href="http://halide-lang.org/">Halide Programming Language</a> </li>
 <li> Latedays Cluster (possibly) </li>
 </ul>
 
 <h2>Goals & Deliverables</h2>
 <p>
-By the end of this project, we hope to have a working implementation of Caffe's neural network written in Halide.
+By the end of this project, we hope to have a working implementation of a convolutional neural network written in Halide.
 We will then compare (and perhaps optimize) the performance of this algorithm with other implementations.
-In the event that this component of our project isn't completed and we simply port Caffe to a Xeon Phi or develop a neural network in Halide, we will compare performance via training time, testing time, and accuracy with other CPU and GPU implementations.
-These tests would be done on a consistent dataset, such as CIFAR-10. 
+In order to be consistant, we will use a well known neural network, LeNet.
+This also allows us to use another framework, such as Caffe, to traing the nueral network and discover the weights for us.
 </p>
 
 <h2>Platform Choices</h2>
 <p>
 We will be working in unix environment, coding our project in C++ and Halide.
-This is because Caffe is originally in C++, and Halide is our target port language.
-If our project gains the objective of porting Caffe to a Xeon Phi, we will use the new latedays cluster for hardware. 
 </p>
 
 <h2>Schedule</h2>
@@ -92,9 +100,9 @@ If our project gains the objective of porting Caffe to a Xeon Phi, we will use t
 In order to complete this project in a timely manner, we will keep the following schedule:
 </p>
 <ul>
-<li> Week 1: Familiarize with Caffe framework codebase / Halide language basics </li>
-<li> Week 2: Develop basic algorithms in Halide / rewrite parts of Caffe in C++ for framework understanding. </li>
-<li> Week 3: Port necessary components to Halide. </li>
+<li> Week 1: Familiarize with Halide language basics </li>
+<li> Week 2: Develop basic algorithms in Halide </li>
+<li> Week 3: Discover CNN weights using Caffe or alternative and port necessary components to Halide. </li>
 <li> Week 4: Test / compare. </li>
 <li> Week 5: Extra / buffer time. </li>
 </ul>
