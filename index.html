@@ -8,17 +8,37 @@
 
 <h1>Functional Neural Network Evaluation in Halide</h1>
 
+<p>
 Our submission for the 15-418 Parallelism Competition is our evaluation of using Halide, a functional programming language designed for image processing and computational photography, to construct a neural network.
 Neural networks are an increasingly popular structure for machine learning, especially image recognition tasks.
 Because of Halide's design, parallelizing image processing tasks is incredibly simple, and we believe that it will translate well to evaluating neural networks.
+</p>
 
 <h2>Project Update</h2>
 
+<p>
+For our project, we chose to construct the LeNet neural network, a popular network designed to classify images of digits in the MNIST dataset. 
+This neural network consists of 6 layers.
+The first is the input layer
+The second and third are convolution / pooling layers.
+The fourth and fifth layers are fully connected layers.
+The final layer is a softmax layer, which calculates the class.
+An excellent example of this network, and the one we based our system off, can be found <a href="http://deeplearning.net/tutorial/lenet.html">here</a>.
+We were successful in our development of this system.
+In Halide, we were able to develop each layer and the connections between them, such that an image can be pipelined through the network and classified.
+</p>
 
+<p>
+Our remaining work will be porting our code over to a more powerful machine (such as the latedays cluster) and optimizing the code there.
+We will then compare it to other neural network implementations, such as Caffe and Theano.
+</p>
 
 <h2>Initial Results</h2>
 
 <p>
+None
+</p>
+
 Previous work on this project, including the checkpoint and proposal, can be found <a href="previous.html">here</a>.
 
 </body>
