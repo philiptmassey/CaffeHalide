@@ -68,10 +68,14 @@ if __name__ == "__main__":
     layer3_biases = numpy.asarray([layer3_biases], dtype=numpy.uint8)
     layer0_weights = numpy.asarray(layer0_weights, dtype=numpy.uint8)
     layer1_weights = numpy.asarray(layer1_weights, dtype=numpy.uint8)
-    layer2_weights = numpy.asarray([layer2_weights], dtype=numpy.uint8).reshape(4, 96)
+
+    layer2_weights_array = numpy.ndarray((96, 4), dtype=numpy.uint8)
+    for i in xrange(4 * 96):
+        layer2_weights_array[i / 4][i % 4] = layer2_weights[i]
+    layer2_weights = layer2_weights_array
 
     layer3_weights_array = numpy.ndarray((4, 10), dtype=numpy.uint8)
-    for i in xrange(40):
+    for i in xrange(4 * 10):
         layer3_weights_array[i / 10][i % 10] = layer3_weights[i]
     layer3_weights = layer3_weights_array
 
@@ -85,8 +89,8 @@ if __name__ == "__main__":
     print layer2_weights.shape
     print layer3_weights.shape
 
-    print layer0_weights
-    print layer0_biases
+    print layer3_weights
+    print layer3_biases
 
     for i, image in enumerate(layer0_weights):
         Image.fromarray(image).convert('L').save("res/l0w%d.png" % i)        
