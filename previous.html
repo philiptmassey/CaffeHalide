@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+<h2>Project Checkpoint</h2>
+<p>
+The updated schedule can be found below at the bottom of this page.
+</p>
+
+<p>
+Halfway through this project, I would say that we are well on our way to completion.
+Our understanding of neural networks has increased considerably, and we both understand how convolutional neural networks work and how the three main components (the convolution operators, max pool operators, and fully connected perceptrons) work to create the classifier.
+We have experience with Halide, and how it's functions, expressions, values, and range domains can be done to write these layers in few, but very meaningful lines of code.
+This will allow us to write very parallelizable code, which will help us be competitive.
+</p>
+
+<p>
+At the parallelism competition, we will most likely be showing a graph of the speed of our Halide implementation versus some other implementations, as well as the results for our consideration of Halide as a tool for neural network training.
+</p>
+
+<p>
+Right now, the majority of the work we have left to do is finish coding the nueral network evaluation and get the weights from Caffe's implementation/training of LeNet. Caffe has been proving problematic to get to compile on our local machines, but hopefully the Latedays implementation will work for us.
+</p>
+
+<h2>Project Proposal</h2>
+<h2>Title</h2>
+<p>
+Halide Implementation of a Convolutional Neural Network - Philip Massey & Arjun Kar
+</p>
+
+<h2>Summary</h2>
+<p>
+Our project is to port the deep learning framework <a href="http://caffe.berkeleyvision.org/">Caffe</a> to the image processing language <a href="http://halide-lang.org/">Halide</a>.
+However, this is a daunting project.
+In the event that this proves too difficult / impractical with the current state of the framework or language, we may opt to instead do a simpler project.
+Based on which of the two resources are proving difficult, we will either port Caffe to a Xeon Phi, or develop a neural network in Halide.
+</p>
+
+<h2>Background</h2>
+<p>
+This project is a topic in parallel machine learning.
+Our particular project is looking into neural networks.
+Neural networks are not simple algorithms; a nice introduction can be found <a href="http://www.willamette.edu/~gorr/classes/cs449/intro.html">here</a>.
+As a brief overview, neural networks are made up of many layers.
+Each layer uses the weighted sum of the layers beneath it and computes a new value using the hyperbolic tangent function (as it is a universal basis function).
+The first layer is simply an input feature vector, and the final layer is the output (either a value for regression or a percentage for classification).
+What's amazing about this algorithm is that given enough hidden layers and training time, a neural network can represent ANY function.
+<br><br>
+Halide is a new programming language / C++ API that is designed for high-performance image processing.
+It also has modes for both CPUs and GPUs and many languages.
+<br><br>
+Neural networks have many opportunities for parallelism.
+One example is parallelizing the different nodes in each layer, and syncing between each layer.
+This allows for parallelization on both forward and backward propagation.
+However, other forms of parallelism can also prove interesting.
+For example, parallelizing training examples and doing batch updates is a method we may explore.
+Doing this would give an approximation to the correct solution of a neural network.
+However, in many machine learning algorithms, this possible decrease in accuracy is well worth the decrease in training time.
+</p>
+
+<h2>The Challenge</h2>
+<p>
+The project is challenging because of both the subject matter and the project implementation.
+Deep learning through neural networks is a nontrivial application of machine learning.
+Simply developing the methods of forward and backward propagation to train the weights of hidden layers is a challenge. 
+On top of this algorithm, this project requires a deep understanding of the Halide image processing language.
+Halide is a powerful API / language built on C++ used for image processing in an object-oriented method. 
+Our primary goal, creating a neural network evaluator Halide, will test our understanding of everything above.
+</p>
+
+<h2>Resources</h2>
+<p>
+For this project, we will utilize the following resources:
+</p>
+<ul>
+<li> <a href="http://halide-lang.org/">Halide Programming Language</a> </li>
+<li> Latedays Cluster (possibly) </li>
+</ul>
+
+<h2>Goals & Deliverables</h2>
+<p>
+By the end of this project, we hope to have a working implementation of a convolutional neural network written in Halide.
+We will then compare (and perhaps optimize) the performance of this algorithm with other implementations.
+In order to be consistant, we will use a well known neural network, LeNet.
+This also allows us to use another framework, such as Caffe, to traing the nueral network and discover the weights for us.
+</p>
+
+<h2>Platform Choices</h2>
+<p>
+We will be working in unix environment, coding our project in C++ and Halide.
+</p>
+
+<h2>Schedule</h2>
+<p>
+In order to complete this project in a timely manner, we will keep the following schedule:
+</p>
+<ul>
+<li> Week 1: Familiarize with Halide language basics </li>
+<li> Week 2: Develop basic algorithms in Halide </li>
+<li> Week 3: Discover CNN weights using Caffe or alternative and port necessary components to Halide. </li>
+<li> Week 4: Test / compare. </li>
+<li> Week 5: Extra / buffer time. </li>
+</ul>
+
+<p>
+This is the project page for a 15-418 class project at Carnegie Mellon University. It will (eventually) be updated to look pretty (probably).
+</p>
+
+</body>
+</html>
