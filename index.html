@@ -35,13 +35,11 @@ We will then compare it to other neural network implementations, such as Caffe a
 
 <h2>Initial Results</h2>
 
+<p>
 Our initial results (using almost completely unscheduled, unoptimized Halide code) runs a single image through our neural network on a small laptop computer in ~0.8 seconds.
 Top-grade implementations such as Caffe claim to be able to classify images in ~1 millisecond on a high-end GPU such as an NVIDIA K40.
 While this is a significant difference, we believe the difference in computational resources will have a much larger impact.
 We hope to completely optimize and schedule our Halide code and perform direct time trials versus Caffe within the next two days.
-
-<p>
-None
 </p>
 
 Previous work on this project, including the checkpoint and proposal, can be found <a href="previous.html">here</a>.
