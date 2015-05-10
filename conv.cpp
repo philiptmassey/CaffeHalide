@@ -11,7 +11,7 @@ using Halide::Image;
 #include "clock.h"
 
 // Constants
-const int NUM_IMAGES = 1;
+const int NUM_IMAGES = 2000;
 
 const int IMAGE_SIZE = 28;
 const int REDUCE_IMAGE_SIZE = 4;
@@ -25,6 +25,8 @@ const int LAYER2_NODES = 50;
 const int LAYER3_NODES = 500;
 const int LAYER4_NODES = 10;
 
+const int VECTORS = 4;
+
 Halide::Func convolution_layer(Halide::Func input, Halide::Func weights,
     Halide::Func bias, int filter_size, int input_layers, int pool_size) {
 
@@ -37,26 +39,22 @@ Halide::Func convolution_layer(Halide::Func input, Halide::Func weights,
     convolution(x, y, z, w) += weights(r.x, r.y, r.z, z) * 
         input(x + r.x, y + r.y, r.z, w);
 
-    Halide::Var z_in, z_out, index;
-    //convolution.split(z, z_out, z_in, 1);
-    //convolution.fuse(z_out, z_in, index);
-    //convolution.parallel(index);
-
     // Max pool
     Halide::Func subsample;
     Halide::RDom s(0, pool_size, 0, pool_size);
-    subsample(x, y, z, w) = convolution(pool_size * x, pool_size * y, z, w);
+    subsample(x, y, z, w) = 0.0f;
     subsample(x, y, z, w) = Halide::max(convolution(pool_size * x + s.x,
         pool_size * y + s.y, z, w), subsample(x, y, z, w));
-
-    //subsample.tile(x, y, t1, t2, t3, t4, 2, 2);
-    //subsample.fuse(t2, t4, index);
-    //subsample.parallel(index);
-    //subsample.vectorize(x, 4);
 
     // Non-linear bias
     Halide::Func biased;
     biased(x, y, z, w) = tanh(subsample(x, y, z, w) + bias(z, 0));
+
+    Halide::Var x_inner, x_outer, y_inner, y_outer;
+    biased.parallel(w);
+    biased.tile(x, y, x_outer, y_outer, x_inner, y_inner, VECTORS, 2);
+    biased.vectorize(x_inner);
+    biased.unroll(y_inner);
 
     return biased;
 }
@@ -72,7 +70,8 @@ Halide::Func flatten(Halide::Func input, int image_size) {
     int full_size = image_size * image_size;
     flatten2(x, y, z) = flatten1(x % full_size, x / full_size, z);
 
-    //flatten2.vectorize(x, 4);
+    flatten2.parallel(z);
+    flatten2.vectorize(x, VECTORS);
 
     return flatten2;
 }
@@ -88,6 +87,8 @@ Halide::Func fully_connected_layer(Halide::Func input, Halide::Func weights,
     product(x, y, z) = 0.0f;
     product(x, y, z) += weights(r.x, x) * input(r.x, y, z);
     product(x, y, z) = tanh(product(x, y, z) + bias(x, 0));
+
+    product.vectorize(x, VECTORS);
 
     return product;
 }
@@ -118,11 +119,7 @@ void classify(Halide::Func layer0, Halide::Func *weights,
         FILTER_SIZE, LAYER1_NODES, POOL_SIZE);
 
     // Flatten many feature maps onto a single level for future layers
-    //Halide::Func flattened = flatten(layer2, LAYER2_NODES, 
-     //   LAYER2_NODES * REDUCE_IMAGE_SIZE);
-    Halide::Func flattened = flatten(layer2,
-        REDUCE_IMAGE_SIZE);
-        //LAYER2_NODES * REDUCE_IMAGE_SIZE);
+    Halide::Func flattened = flatten(layer2, REDUCE_IMAGE_SIZE);
 
     // Layer 3 -- Fully connected hidden layer
     Halide::Func layer3 = fully_connected_layer(flattened, weights[2],
@@ -141,13 +138,10 @@ void classify(Halide::Func layer0, Halide::Func *weights,
     flattened.compute_root();
     layer3.compute_root();
     layer4.compute_root();
-    layer5.compute_root();
    
     // Realize to perform computation
     Halide::Image<int> output(1, 1, NUM_IMAGES);
     layer5.realize(output);
-    for (int i = 0; i < NUM_IMAGES; i++)
-        std::cout << output(i, 0) << std::endl;
 }
     
 int main(int argc, char **argv) {
