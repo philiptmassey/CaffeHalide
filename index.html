@@ -33,19 +33,17 @@ In Halide, we were able to develop each layer and the connections between them, 
 </p>
 
 <p>
-Our remaining work will be porting our code over to a more powerful machine (such as the latedays cluster) and optimizing the code there.
+We have successfully ported our Halide neural network to the latedays cluster, and our remaining work will optimizing the code there.
 We will then compare it to other neural network implementations, such as Caffe and Theano.
 </p>
 
 <h2>Initial Results</h2>
 
-Our initial results have running a single image on a small laptop computer through our neural network in Halide taking ~5 seconds.
-Top-grade implementations such as Caffe claim to be able to classify images in ~1 millisecond on a high-end GPU.
-While this is a significant difference, the difference in computational resources makes a larger different.
-We hope to port our code to a larger computer soon to be able to make more direct tests.
-
 <p>
-None
+Our initial results (using almost completely unscheduled, unoptimized Halide code) runs a single image through our neural network on a small laptop computer in ~0.8 seconds.
+Top-grade implementations such as Caffe claim to be able to classify images in ~1 millisecond on a high-end GPU such as an NVIDIA K40.
+While this is a significant difference, we believe the difference in computational resources will have a much larger impact.
+We hope to completely optimize and schedule our Halide code and perform direct time trials versus Caffe within the next two days.
 </p>
 
 Previous work on this project, including the checkpoint and proposal, can be found <a href="previous.html">here</a>.
