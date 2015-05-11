@@ -1,0 +1,59 @@
+SUMMARY ==========================================
+
+We implemented a convolutional neural network (LeNet) in Halide, compared correctness with a Theano (Python) implementation, and raced the industry standard neural network software (Caffe) using both the CPU and GPU.
+We demonstrated that a naive Halide implementation can achieve performance within an order of magnitude versus Caffe.
+
+BACKGROUND =======================================
+
+We will first describe a neural network at a high level, since this concept is crucial to the project.
+A neural network, for our purposes, is a machine learning structure that can be drawn as a directed layer graph, where each layer of nodes takes input from the layer below and outputs to the layer above.
+We will use this structure to classify images, and the final layer will be a maximum over probabilities of the input to be in a certain class.
+Each node of the network performs logistic regression on the input features, and the model trains its weights for this using stochastic gradient descent.
+Additionally, each "hidden" node of the network (an interior node that is not located in the bottom-most or top-most layer) performs an activation on the sum of its inputs multiplied by its parameters.
+The activation is commonly chosen to be the hyperbolic tangent function, for a reason beyond the scope of this write-up.
+We will sometimes refer to these hidden layers as "convolution" layers, as the size of the weight filter is not generally equal to the size of the image, so we must convolve the input with the weight matrices.
+A neural network is trained by running images through the network, calculating the loss function, and then calculating gradients (for gradient descent) by sending information backward through the network.  
+This is commonly known as backpropagation.  
+The loss function can be varied, and is not crucial to understand, but essentially respresents how far from the optimal parameters we are.
+The backpropagation algorithm uses this loss function (which we only know after evaluating the network on training data) to compute what direction we should change our parameters (i.e. whether to decrease, increase, or remain roughly the same).
+This direction (and magnitude) is just the gradient of the loss function with respect to the parameters, which is why the training algorithm for individual nodes is called gradient descent.
+As a last point, the Caffe learning framework is currently the industry standard for training and evaluating neural networks; the Theano framework is another that is easier to modify, since it is in Python.
+
+In addition to neural networks, out project involves a domain-specific language known as Halide, developed at MIT.
+Here we will give a brief overview of Halide's features.
+Halide is a JIT-compiled language for image processing and pipelining that offers high level abstractions for programmers to implement powerful low level optimizations.
+The image processing abstractions such as tiling, fusing, parallelizing, and others are optimized by Halide's compiler for the particular system on which Halide is being run, which allows development of ultra-portable code that optimizes itself intelligently for a given architecture.
+Additionally, Halide splits code into two sections: the first portion of any Halide program defines the algorithm to be executed, and the second portion (optional) defines the schedule on which to execute the algorithm.
+The scheduling portion of Halide code is where major optimizations such as tiling or parallelizing can be defined.
+
+To conclude the background section we will discuss an implementation of LeNet, a certain neural network, in Halide.
+LeNet, named after Yann LeCunn, is made up of two convolution layers (which are also max-pooled, that is to say we subsample the convolved matrix using a simple max function to reduce image size), a fully connected layer (which is simple matrix multiplications of the previous layer's output), and a softmax layer (which actually gives us the predicted class).
+LeNet has been proven to work well on the MNIST data set, which is a collection of hand-drawn numbers (from 0 to 9).
+The classification task therefore has 10 natural classes, and LeNet has demonstrated >95% accuracy on MNIST with just 4 nodes in the first convolution layer and 6 in the second.
+The fully connected layer has number of nodes equal to the number of classes.
+When implementing LeNet in Halide, there are several obvious options for parallelization of the workload.
+This first detail is minibatch size; stocahstic gradient descent dictates that we send a batch of images through the network at the same time, and so we can parallelize this in Halide by simply scheduling each image as independent of the others.
+Additionally, since the network is very much a pipeline, we can define all layers as independent, so a higher layer may begin computation as soon as it receives all of its input, rather than wait for every image to pass through the first layer and have the result stored somewhere.
+This optimization will speed us up during multiple batch evaluations.
+The individual images, during the convolution layers, are extremely amenable to SIMD execution since we are performing the same operations at a pixel level.
+Locality is not a concern at this point in time, loading from memory is a tiny amount of the time we need to actually perform the expensive network evaluation.
+MORE TO COME ===============================================
+
+APPROACH =========================================
+
+The software used was the Halide language, the Caffe learning framework, the Theano learning framework, and the Latedays cluster.
+Both the CPU (Intel Xeon) and GPU (NVIDIA Tesla K40) were compiler targets on Latedays.
+The beautiful part of Halide's abstract scheduling is that we as programmers could specify at a high level exactly how we wanted CPU vectorizing or GPU thread blocks mapped to the code.
+We did not change the serial algorithm; rather, we were able to parallelize simply by noting the portions of the serial algorithm that were actually doable simultaneously.
+The coding of the algorithm in Halide did not require many iterations, since most of the structure had already been clearly outlined in documentation of LeNet and Theano.
+However, the scheduling portion of the code required numerous optimizations that were not obvious at first.
+We begin with analysis of the CPU scheduling approach.
+At first, we parallelized the minibatch through Halide's ".parallel" primitive, which allowed all images in a single minibatch to be evaluated simultaneously by a pool of worker threads.
+A pool of workers is generally superior to creating one thread per parallel process, as discussed many times in 15-418 lectures.
+That is also true in this case, where we are parallelizing over many more images than we have processors (minibatch size was taken to be 100), so having a worker pool enables us to avoid scenarios where processors context switch and lose valuable work time.
+The overhead associated with creating the worker pool and managing work distribution is negligible in this case compared to the overhead of creating a thread per image.
+This is not done at every layer; a layer needs 
+
+
+
+
